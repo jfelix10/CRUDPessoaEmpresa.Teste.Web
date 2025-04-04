@@ -1,0 +1,131 @@
+<div class="container mt-4">
+    <div class="row justify-content-center">
+      <div class="col-lg-10">
+        <div class="card">
+          <div class="card-header">
+            <h4>Cadastro de Cliente</h4>
+          </div>
+          <div *ngIf="clienteCadastradoSucesso" class="alert alert-success mt-1">
+                Cliente salvo com sucesso.
+            </div>
+          <div class="card-body">
+            <form [formGroup]="clienteForm" (ngSubmit)="onSubmit()">
+              <div class="row mb-3">
+                <div class="col-md-4">
+                  <label for="nomeRazaoSocial" class="form-label">Nome/Razão Social</label>
+                  <input type="text" class="form-control" id="nomeRazaoSocial" formControlName="nomeRazaoSocial">
+                  <div *ngIf="clienteForm.get('nomeRazaoSocial')?.invalid && (clienteForm.get('nomeRazaoSocial')?.dirty || clienteForm.get('nomeRazaoSocial')?.touched)" class="alert alert-danger mt-1">
+                    <div *ngIf="clienteForm.get('nomeRazaoSocial')?.errors?.['required']">Nome/Razão Social é obrigatório.</div>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <label for="cpfCnpj" class="form-label">CPF/CNPJ</label>
+                  <input type="text" class="form-control" id="cpfCnpj" mask="000.000.000-00||00.000.000/0000-00" [dropSpecialCharacters]="true" formControlName="cpfCnpj">
+                  <div *ngIf="clienteForm.get('cpfCnpj')?.invalid && (clienteForm.get('cpfCnpj')?.touched)" class="alert alert-danger mt-1">
+                    <div *ngIf="clienteForm.get('cpfCnpj')?.errors?.['required']">CPF/CNPJ é obrigatório.</div>
+                    <div *ngIf="clienteForm.get('cpfCnpj')?.errors?.['mask']">CPF/CNPJ inválido.</div>
+                    <div *ngIf="clienteForm.get('cpfCnpj')?.errors?.['backend']">CPF/CNPJ já cadastrado.</div>
+                  </div>
+                </div>
+                <div class="col-md-2">
+                  <label for="dataNascimento" class="form-label">Data Nascimento</label>
+                  <input type="date" class="form-control" id="dataNascimento" formControlName="dataNascimento">
+                  <div *ngIf="clienteForm.get('dataNascimento')?.invalid && (clienteForm.get('dataNascimento')?.dirty || clienteForm.get('dataNascimento')?.touched)" class="alert alert-danger mt-1">
+                    <div *ngIf="clienteForm.get('dataNascimento')?.errors?.['required']">Data Nascimento é obrigatória.</div>
+                    <div *ngIf="clienteForm.get('dataNascimento')?.errors?.['backend']">Idade mínima de 18 anos para pessoa física.</div>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <label for="telefone" class="form-label">Telefone</label>
+                  <input type="tel" class="form-control" id="telefone" mask="(00) 00000-0000||(00) 0000-0000" [dropSpecialCharacters]="true" formControlName="telefone">
+                  <div *ngIf="clienteForm.get('telefone')?.invalid && (clienteForm.get('telefone')?.touched)" class="alert alert-danger mt-1">
+                    <div *ngIf="clienteForm.get('telefone')?.errors?.['mask']">Telefone inválido.</div>
+                    <div *ngIf="clienteForm.get('telefone')?.errors?.['required']">Telefone é obrigatório.</div>
+                  </div>
+                </div>
+              </div>
+  
+              <div class="row mb-3">
+                <div class="col-md-4">
+                  <label for="email" class="form-label">E-mail</label>
+                  <input type="email" class="form-control" id="email" formControlName="email">
+                  <div *ngIf="clienteForm.get('email')?.invalid && (clienteForm.get('email')?.dirty || clienteForm.get('email')?.touched)" class="alert alert-danger mt-1">
+                    <div *ngIf="clienteForm.get('email')?.errors?.['required']">E-mail é obrigatório.</div>
+                    <div *ngIf="clienteForm.get('email')?.errors?.['email']">E-mail inválido.</div>
+                    <div *ngIf="clienteForm.get('email')?.errors?.['backend']">E-mail já cadastrado.</div>
+                  </div>
+                </div>
+                <div class="col-md-2">
+                  <label for="cep" class="form-label">CEP</label>
+                  <input type="text" class="form-control" id="cep" (blur)="getEndereco()" mask="00000-000" [dropSpecialCharacters]="true" formControlName="cep">
+                  <div *ngIf="clienteForm.get('cep')?.invalid && (clienteForm.get('cep')?.touched)" class="alert alert-danger mt-1">
+                    <div *ngIf="clienteForm.get('cep')?.errors?.['required']">CEP é obrigatório.</div>
+                    <div *ngIf="clienteForm.get('cep')?.errors?.['mask']">CEP inválido.</div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <label for="endereco" class="form-label">Endereço</label>
+                  <input type="text" class="form-control" id="endereco" formControlName="endereco" [readonly]="true">
+                  <div *ngIf="clienteForm.get('endereco')?.invalid && (clienteForm.get('endereco')?.dirty || clienteForm.get('endereco')?.touched)" class="alert alert-danger mt-1">
+                    <div *ngIf="clienteForm.get('endereco')?.errors?.['required']">Endereço é obrigatório.</div>
+                  </div>
+                </div>
+                <div class="col-md-2">
+                  <label for="numero" class="form-label">Número</label>
+                  <input type="text" class="form-control" id="numero" formControlName="numero">
+                  <div *ngIf="clienteForm.get('numero')?.invalid && (clienteForm.get('numero')?.dirty || clienteForm.get('numero')?.touched)" class="alert alert-danger mt-1">
+                    <div *ngIf="clienteForm.get('numero')?.errors?.['required']">Número é obrigatório.</div>
+                  </div>
+                </div>
+              </div>
+  
+              <div class="row mb-3">
+                <div class="col-md-3">
+                  <label for="bairro" class="form-label">Bairro</label>
+                  <input type="text" class="form-control" id="bairro" formControlName="bairro" [readonly]="true">
+                  <div *ngIf="clienteForm.get('bairro')?.invalid && (clienteForm.get('bairro')?.dirty || clienteForm.get('bairro')?.touched)" class="alert alert-danger mt-1">
+                    <div *ngIf="clienteForm.get('bairro')?.errors?.['required']">Bairro é obrigatório.</div>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <label for="cidade" class="form-label">Cidade</label>
+                  <input type="text" class="form-control" id="cidade" formControlName="cidade" [readonly]="true">
+                  <div *ngIf="clienteForm.get('cidade')?.invalid && (clienteForm.get('cidade')?.dirty || clienteForm.get('cidade')?.touched)" class="alert alert-danger mt-1">
+                    <div *ngIf="clienteForm.get('cidade')?.errors?.['required']">Cidade é obrigatória.</div>
+                  </div>
+                </div>
+                <div class="col-md-2">
+                  <label for="estado" class="form-label">Estado</label>
+                  <select class="form-select" id="estado" formControlName="estado">
+                    <option value="" disabled selected>Selecione o Estado</option>
+                    <option [value]="clienteForm.get('estado')?.value" [selected]="true" [disabled]="true">
+                            {{clienteForm.get('estado')?.value}}
+                        </option>
+                  </select>
+                  <div *ngIf="clienteForm.get('estado')?.invalid && (clienteForm.get('estado')?.dirty || clienteForm.get('estado')?.touched)" class="alert alert-danger mt-1">
+                    <div *ngIf="clienteForm.get('estado')?.errors?.['required']">Estado é obrigatório.</div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                    <label for="inscricaoEstadual" class="form-label">IE (Opcional para Pessoa Física)</label>
+                    <input type="text" class="form-control" id="inscricaoEstadual" name="inscricaoEstadual" formControlName="inscricaoEstadual">
+                    <div *ngIf="clienteForm.get('inscricaoEstadual')?.invalid || clienteForm.get('inscricaoEstadual')?.errors || erroIsencao" class="alert alert-danger mt-1">
+                        <div *ngIf="clienteForm.get('inscricaoEstadual')?.errors?.['required'] || erroIsencao">IE é obrigatório para Pessoa Jurídica, ou informe "isento".</div>
+                        <div *ngIf="clienteForm.get('inscricaoEstadual')?.errors?.['backend']">{{ clienteForm.get('inscricaoEstadual')?.errors?.['backend'] }}</div>
+                    </div>
+                </div>
+              </div>
+              <hr>
+              <div class="row mb-3">
+                <div class="col-md-4">
+                    <button type="submit" class="btn btn-primary" [disabled]="clienteForm.invalid">Salvar</button>
+
+                    <input type="hidden" name="pessoaFisica" id="pessoaFisica" formControlName="pessoaFisica">
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
