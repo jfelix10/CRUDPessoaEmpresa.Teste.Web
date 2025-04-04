@@ -1,59 +1,123 @@
-# CRUDPessoaEmpresaTesteWeb
+# CRUD Pessoa e Empresa - Teste Web
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.4.
+Este projeto é uma **aplicação frontend desenvolvida em Angular**, projetada para realizar o cadastro de clientes de maneira eficiente e responsiva. Ele utiliza uma **masterpage responsiva** e recursos de **template-driven forms** para proporcionar uma experiência de usuário intuitiva e moderna.
 
-## Development server
+---
 
-To start a local development server, run:
+## 🚀 Funcionalidades
 
-```bash
-ng serve
-```
+- **Cadastro de Clientes**: 
+  - Interface simples e validada com regras como obrigatoriedade de campos e máscaras para CPF/CNPJ e telefone.
+  - Mensagem de sucesso ao salvar um cliente, que desaparece automaticamente após um período.
+  
+- **Masterpage Responsiva**:
+  - Barra de navegação fixa no topo e menu lateral que pode ser expandido e recolhido.
+  - Layout moderno utilizando **Bootstrap** para responsividade.
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+- **Validações Avançadas**:
+  - Máscaras para inputs como CPF/CNPJ e telefone, facilitando a entrada de dados.
+  - Feedback visual em tempo real para valores inválidos.
 
-## Code scaffolding
+---
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## 🛠️ Tecnologias Utilizadas
 
-```bash
-ng generate component component-name
-```
+- **Framework Angular (v19.x)**:
+  - Componentização, reatividade e validação com **FormsModule**.
+- **Bootstrap 5**:
+  - Responsividade e estilização moderna.
+- **Font Awesome**:
+  - Ícones para uma interface mais elegante.
+- **ngx-mask**:
+  - Aplicação de máscaras em campos de formulário.
+- **RxJS**:
+  - Gerenciamento de estados e reatividade no Angular.
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+---
 
-```bash
-ng generate --help
-```
+## 📂 Estrutura do Projeto
 
-## Building
+```plaintext
+src/
+├── app/
+│   ├── master-page/
+│   │   ├── master-page.component.html   # Template da masterpage
+│   │   ├── master-page.component.ts     # Lógica da masterpage (menu responsivo)
+│   │   ├── master-page.component.css    # Estilo da masterpage
+│   ├── cliente/
+│   │   ├── cliente.component.html       # Template do cadastro de cliente
+│   │   ├── cliente.component.ts         # Lógica e validações do cadastro de cliente
+│   │   ├── cliente.component.css        # Estilo do cadastro de cliente
+├── assets/
+│   ├── ...                              # Recursos estáticos
+└── ...
 
-To build the project run:
+## ✨ Vantagens da Arquitetura
+Separação de Preocupações:
 
-```bash
-ng build
-```
+Cada funcionalidade (como o cadastro de clientes) está isolada em um componente, promovendo modularidade e fácil manutenção.
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+Experiência do Usuário Aprimorada:
 
-## Running unit tests
+Respostas visuais imediatas, como mensagens de sucesso e feedback de validação em campos.
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+Navegação intuitiva com a masterpage e o menu lateral.
 
-```bash
-ng test
-```
+Integração de Tecnologias Modernas:
 
-## Running end-to-end tests
+Uso de bibliotecas amplamente suportadas (como Bootstrap e ngx-mask) para acelerar o desenvolvimento.
 
-For end-to-end (e2e) testing, run:
+Responsividade Garantida:
 
-```bash
-ng e2e
-```
+Layouts adaptáveis que oferecem ótima experiência tanto em dispositivos móveis quanto em desktops.
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+## 🎨 Captura de Tela (Opcional)
+Adicione imagens da aplicação em funcionamento para ilustrar as telas, como o formulário de cadastro de clientes e a masterpage com menu lateral.
 
-## Additional Resources
+## 🔧 Instalação e Configuração
+Clone o repositório:
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+bash
+git clone <url-do-repositorio>
+Instale as dependências do projeto:
+
+bash
+npm install
+Inicie o servidor de desenvolvimento:
+
+bash
+npm start
+Acesse o aplicativo:
+
+plaintext
+http://localhost:4200
+## 🚦 Como Usar
+Navegue até o menu lateral e clique em Clientes.
+
+Preencha o formulário com as informações do cliente:
+
+Nome/Razão Social.
+
+CPF ou CNPJ (com máscara).
+
+Data de nascimento.
+
+Telefone.
+
+E-mail.
+
+Clique em Salvar.
+
+Uma mensagem de sucesso será exibida por 5 segundos, indicando que o cliente foi cadastrado com sucesso.
+
+## 📜 Scripts Disponíveis
+npm start: Inicia o servidor de desenvolvimento.
+
+npm build: Cria a versão de produção do projeto.
+
+npm test: Executa os testes unitários.
+
+## 📝 Notas Adicionais
+Este projeto foi criado como parte de um teste técnico, com foco em boas práticas e componentes reutilizáveis.
+
+O backend correspondente é desenvolvido com .NET Core e se comunica com esta aplicação para persistir os dados do cliente.
